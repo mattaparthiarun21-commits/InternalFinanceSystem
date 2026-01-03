@@ -1,21 +1,17 @@
 import sqlite3
-
+ 
 connection = sqlite3.connect("finance.db")
 cursor = connection.cursor()
-
-# We added 'reason TEXT' to the list below
-cursor.execute(
-    """
+ 
+# Create table if it doesn't exist
+cursor.execute("""
     CREATE TABLE IF NOT EXISTS users_data (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        username TEXT,
-        monthly_savings INTEGER,
-        projected_annual INTEGER,
-        reason TEXT
-    );
-    """
-)
-
+        user_name TEXT,
+        estimated_annual REAL,
+        reason_text TEXT,
+        db_data TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+""")
 connection.commit()
 connection.close()
-print("New Database structure (with Reason) created!")
